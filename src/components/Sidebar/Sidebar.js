@@ -5,6 +5,7 @@ import Logo from "../Logo/Logo";
 import MenuItem from "../MenuItem/MenuItem";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
+import QueueOutlinedIcon from "@material-ui/icons/QueueOutlined";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
@@ -67,6 +68,14 @@ const Sidebar = (props) => {
                 icon={LocalLibraryIcon}
                 onClick={() => onItemClicked("Books")}
                 active={props.selectedItem === "Books"}
+              />
+            </Link>
+            <Link to="/add-books" className={sideBarStyles.link}>
+              <MenuItem
+                title="Add Books"
+                icon={QueueOutlinedIcon}
+                onClick={() => onItemClicked("Add Books")}
+                active={props.selectedItem === "Add Books"}
               />
             </Link>
             <Link to="/authors" className={sideBarStyles.link}>

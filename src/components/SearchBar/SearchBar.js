@@ -9,27 +9,21 @@ const useStyles = makeStyles((theme) => ({
   root: {
     padding: "10px 10px 10px 10px",
     display: "flex",
-    alignItems: "center",
     margin: "10px",
   },
   input: {
-    marginLeft: theme.spacing(1),
     flex: 1,
   },
   iconButton: {
     padding: 10,
   },
-  divider: {
-    height: 28,
-    margin: 4,
-  },
 }));
 
-const LibrarySearchBar = (props) => {
+const SearchBar = (props) => {
   const classes = useStyles();
 
   return (
-    <Paper component="form" className={classes.root}>
+    <Paper component="form" variant="outlined" className={classes.root}>
       <InputBase
         className={classes.input}
         placeholder="Search Books"
@@ -47,4 +41,4 @@ const LibrarySearchBar = (props) => {
   );
 };
 
-export default LibrarySearchBar;
+export default SearchBar;

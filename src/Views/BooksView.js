@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Books from "../components/Books/Books";
-import AddBook from "../components/AddBook/AddBook";
-import LibrarySearchBar from "../components/SearchBar/SearchBar";
+import SearchBar from "../components/SearchBar/SearchBar";
+import BookContext from "../Store/book-store";
 
 const BooksView = () => {
   const [books, setBooks] = useState([]);
@@ -9,14 +9,12 @@ const BooksView = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:4000/api/books`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        setBooks(response.data.books);
-      })
-      .catch((error) => console.log(error));
+    const fetchAllBooks = async () => {
+      let response = await fetch("http://localhost:4000/api/books");
+      response = await response.json();
+      setBooks(response.data.books);
+    };
+    fetchAllBooks();
   }, []);
 
   useEffect(() => {
@@ -31,23 +29,16 @@ const BooksView = () => {
     );
   }, [searchTerm]);
 
-  const onAddBookHandler = (newBook) => {
-    setBooks((prevBooksList) => {
-      return [...prevBooksList, newBook];
-    });
-  };
-
   const searchChangeHandler = (event) => {
     event.preventDefault();
     setSearchTerm(event.target.value);
   };
 
   return (
-    <>
-      <AddBook onComplete={onAddBookHandler} />
-      <LibrarySearchBar onSearch={searchChangeHandler} />
+    <BookContext.Provider value={{ books: filteredBooks }}>
+      <SearchBar onSearch={searchChangeHandler} />
       <Books books={filteredBooks} />
-    </>
+    </BookContext.Provider>
   );
 };
 

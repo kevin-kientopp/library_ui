@@ -9,6 +9,11 @@ const Books = (props) => {
           key={book.id}
           title={book.title}
           thumbnailUrl={book.thumbnailUrl}
+          isbn10={book.isbn10}
+          isbn13={book.isbn13}
+          pageCount={book.pageCount}
+          author={book.author}
+          description={book.description}
         />
       ))}
     </div>

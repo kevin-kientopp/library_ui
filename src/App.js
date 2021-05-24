@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AuthorsView from "./Views/AuthorsView";
 import BooksView from "./Views/BooksView";
 import TimelineView from "./Views/TimelineView";
+import AddBooksView from "./Views/AddBooksView";
+import BookContext from "./Store/book-store";
 
 class App extends React.Component {
   state = { selectedItem: "TimelineView" };
@@ -25,22 +27,25 @@ class App extends React.Component {
     const { selectedItem } = this.state;
     return (
       <Router>
-        <Row className={styles.container}>
-          <Sidebar
-            selectedItem={selectedItem}
-            onChange={(selectedItem) => this.setState({ selectedItem })}
-          />
-          <Column flexGrow={1} className={styles.mainBlock}>
-            <Header title={selectedItem} />
-            <div className={styles.content}>
-              <Switch>
-                <Route path="/authors" component={AuthorsView} />
-                <Route path="/books" component={BooksView} />
-                <Route path="/timeline" component={TimelineView} />
-              </Switch>
-            </div>
-          </Column>
-        </Row>
+        <BookContext.Provider value={{ books: [] }}>
+          <Row className={styles.container}>
+            <Sidebar
+              selectedItem={selectedItem}
+              onChange={(selectedItem) => this.setState({ selectedItem })}
+            />
+            <Column flexGrow={1} className={styles.mainBlock}>
+              <Header title={selectedItem} />
+              <div className={styles.content}>
+                <Switch>
+                  <Route path="/timeline" component={TimelineView} />
+                  <Route path="/books" component={BooksView} />
+                  <Route path="/add-books" component={AddBooksView} />
+                  <Route path="/authors" component={AuthorsView} />
+                </Switch>
+              </div>
+            </Column>
+          </Row>
+        </BookContext.Provider>
       </Router>
     );
   }
