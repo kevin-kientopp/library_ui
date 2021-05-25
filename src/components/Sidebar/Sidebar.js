@@ -56,7 +56,7 @@ const Sidebar = (props) => {
           <Column className={sideBarStyles.menuItemList}>
             <Link to="/timeline" className={sideBarStyles.link}>
               <MenuItem
-                title="TimelineView"
+                title="Timeline"
                 icon={TimelineIcon}
                 onClick={() => onItemClicked("Timeline")}
                 active={props.selectedItem === "Timeline"}

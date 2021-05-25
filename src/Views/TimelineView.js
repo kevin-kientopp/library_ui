@@ -1,9 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 
-class TimelineView extends Component {
-  render() {
-    return <></>;
-  }
-}
+const TimelineView = () => {
+  return <></>;
+};
 
 export default TimelineView;
