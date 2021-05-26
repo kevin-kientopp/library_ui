@@ -26,10 +26,22 @@ const routes = [
   },
 ];
 class App extends React.Component {
-  state = { selectedItem: "Timeline" };
+  state = { selectedItem: "Timeline", books: [], booksFetched: false };
 
   componentDidMount() {
     window.addEventListener("resize", this.resize);
+  }
+
+  componentDidUpdate() {
+    if (this.state.selectedItem === 'Books' && !this.state.booksFetched) {
+      const fetchAllBooks = async () => {
+        let response = await fetch("http://localhost:4000/api/books");
+        response = await response.json();
+        console.log('response =', response);
+        this.setState({ books: response.data.books, booksFetched: true });
+      };
+      fetchAllBooks();
+    }
   }
 
   componentWillUnmount() {
@@ -52,7 +64,7 @@ class App extends React.Component {
               <Header title={selectedItem} />
               <div className={styles.content}>
                 {routes.map(({ path, Component }) => (
-                  <Route key={path} path={path} children={<Component />} />
+                  <Route key={path} path={path} render={() => <Component books={this.state.books} />} />
                 ))}
               </div>
             </Column>
